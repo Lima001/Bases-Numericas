@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BaseOperator</title>
+</head>
+<body>
+    <h1>Um Operador de Bases Númericas Básico</h1>
+    <form action="/realizar_operacao" method="POST">
+        Numero1: <input type="text" name="num1" placeholder="ex.256"><br>
+        Numero2: <input type="text" name="num2" placeholder="ex.256"><br>
+        Base Entrada: <input type="text" name="base" placeholder="ex.8"><br>
+        Operacao: 
+        <select name="operacao">
+            <option value="+">+ Adição</option>
+            <option value="-">- Subtração</option>
+            <option value="*">* Multiplicação</option>
+            <option value="/">/ Divisão</option>
+            <option value="**">** Potenciação</option>
+            <option value="//">// Divisão Inteira</option>
+            <option value="%">% Resto da Divisão</option>
+        </select><br>
+        <button>Calcular</button>
+    </form>
+    <a href="/">Inicio</a>
+</body>
+</html>

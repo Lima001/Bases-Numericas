@@ -31,3 +31,17 @@ def converter_decimal(num,base):
         num = num // base
         saida += simbolos_invertidos[resto]
     return saida[-1::-1]
+
+#Usar para verificar se as entradas estão de acordo com o suportado pelo programa
+def verificar_base_valida(base):
+    '''
+        Verifica se um numero informado está presente no intervalo [1,36]
+    '''
+    if base > 0 and base <= 36:
+        return True
+    return False
+
+def verificar_numero_valido(numero):
+    if numero >= 0 and int(numero) == numero:
+        return True
+    return False
