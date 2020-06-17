@@ -1,4 +1,5 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, json, jsonify
+
 from func import *
 
 app = Flask("__name__")
@@ -15,22 +16,17 @@ def exibir_conversor():
 def exibir_operador():
     return render_template("operar.html")
 
-@app.route("/converter_numero", methods=["post"])
+@app.route("/converter_numero", methods=["POST"])
 def converter_numero():
-    numero = request.form["numero"]
-    base_entrada = int(request.form["base_entrada"])
-    base_saida = int(request.form["base_saida"])
+    resposta = request.get_json()
+    print(resposta, type(resposta))
+    return "Ok"
 
-    if not (verificar_base_valida(base_entrada) and verificar_base_valida(base_saida)):
-        return "Erro -> Bases informadas não suportadas"
-    
-    if not verificar_numero_valido(float(numero)):
-        return "Erro -> Numero informado não suportado"
-
-    numero_decimal = gerar_decimal(numero,base_entrada)
-    numero_convertido = converter_decimal(numero_decimal,base_saida)
-
-    return numero_convertido
+@app.after_request
+def add_headers(resposta):
+    resposta.headers.add('Access-Control-Allow-Origin', '*')
+    resposta.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+    return resposta
 
 @app.route("/realizar_operacao", methods=["post"])
 def realizar_operacao():

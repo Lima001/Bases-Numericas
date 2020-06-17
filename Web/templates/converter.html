@@ -7,12 +7,73 @@
 </head>
 <body>
     <h1>Um Operador de Bases Númericas Básico</h1>
-    <form action="/converter_numero" method="POST">
-        Numero: <input type="text" name="numero" placeholder="ex.256"><br>
-        Base Entrada: <input type="text" name="base_entrada" placeholder="ex.8"><br>
-        Base Saida: <input type="text" name="base_saida" placeholder="ex.10"><br>
-        <button>Converter</button>
+    <form>    
+        Base Entrada: <input id='base_entrada' type="text" placeholder="ex.8"> &nbsp;
+        Numero: <input id='numero' type="text" placeholder="ex.256"><br><br>
+        Base Saida: <input id='base_saida-1' type="text" placeholder="ex.10">&nbsp;
+        Resultado: <input id='resultado-1' type="text" readonly><br>
+        
+        <div id="extras"></div><br>
+        
+        <button id="add_saida" type="button">Add</button>
+        <button id="enviar" type="button">Converter</button>
     </form>
+    
     <a href="/">Inicio</a>
+
+    <script src=https://code.jquery.com/jquery-3.4.1.min.js></script>
+    <script>
+        
+        function del_saida(elemento){
+            var seletor = $(elemento).attr("id")
+            $('.'+seletor).remove()
+        }
+
+        function preparar_dados_envio(cont){
+            var dados = {};
+            
+            dados["numero"] = $("#numero").val();
+            dados["base_entrada"] = $("#base_entrada").val();
+            dados["base_saida"] = {};
+
+            for (i=1; i<=cont; i++){
+                var nome = "base_saida-" + i;
+                dados["base_saida"][nome] = $("#"+nome).val();
+            };
+
+            console.log(dados);
+            return(dados);
+
+        }
+        
+        var cont_id = 1;
+
+        $("#add_saida").click(function(){
+            cont_id += 1;
+            $("#extras").append(
+                "<div class='"+cont_id+"'>"+ 
+                "Base Saida: <input id='base_saida-"+cont_id+"' type='text'>&nbsp" +
+                "Resultado: <input id='resultado-"+cont_id+"' type='text' readonly>&nbsp"+
+                "<button id='"+cont_id+"' onclick='del_saida(this)' type='button'>Excluir</button><br>"+
+                "</div>");
+            
+        });
+
+        $("#enviar").click(function(){
+            $.ajax({
+                url: "http://localhost:5000/converter_numero",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(preparar_dados_envio(cont_id)),
+                sucess: function(){
+                    alert("Deu Certo!!!")
+                },
+                error: function(){
+                    alert("Erro!!!")
+                }
+            })
+        });
+    </script>
+
 </body>
 </html>
