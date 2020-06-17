@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session, json, jsonify
 
-from func import *
+from funcionalidade import *
 
 app = Flask("__name__")
 
@@ -18,9 +18,8 @@ def exibir_operador():
 
 @app.route("/converter_numero", methods=["POST"])
 def converter_numero():
-    resposta = request.get_json()
-    print(resposta, type(resposta))
-    return "Ok"
+    dados = request.get_json()
+    return jsonify(executar_conversao(dados))
 
 @app.after_request
 def add_headers(resposta):

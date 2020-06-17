@@ -51,5 +51,14 @@ def verificar_numero_valido(numero:int) -> bool:
         return True
     return False
 
+#Função utilizada para converter o numero de entrada para as diferentes bases informadas
 def executar_conversao(dados:dict) -> dict:
-    pass
+    saida = {}
+    numero_entrada = int(dados["numero"])
+    base_entrada =  int(dados["base_entrada"])
+    numero_decimal = gerar_decimal(numero_entrada, base_entrada)
+
+    for chave, valor in dados["base_saida"].items():
+        saida[chave] = converter_decimal(numero_decimal, int(valor))
+
+    return saida
