@@ -7,12 +7,10 @@
 </head>
 <body>
     <h1>Um Operador de Bases Númericas Básico</h1>
-    <form action="/realizar_operacao" method="POST">
+    <form>
         Numero1: <input type="text" name="num1" placeholder="ex.256"><br>
-        Numero2: <input type="text" name="num2" placeholder="ex.256"><br>
-        Base Entrada: <input type="text" name="base" placeholder="ex.8"><br>
         Operacao: 
-        <select name="operacao">
+        <select name="operacao" required>
             <option value="+">+ Adição</option>
             <option value="-">- Subtração</option>
             <option value="*">* Multiplicação</option>
@@ -21,7 +19,10 @@
             <option value="//">// Divisão Inteira</option>
             <option value="%">% Resto da Divisão</option>
         </select><br>
-        <button>Calcular</button>
+        Numero2: <input type="text" name="num2" placeholder="ex.256"><br>
+        Base Entrada: <input type="text" name="base" placeholder="ex.8"><br>
+        Resultado: <input type="text" readonly><br>
+        <button class="enviar" type="button">Calcular</button>
     </form>
     <a href="/">Inicio</a>
 </body>

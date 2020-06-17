@@ -59,6 +59,6 @@ def executar_conversao(dados:dict) -> dict:
     numero_decimal = gerar_decimal(numero_entrada, base_entrada)
 
     for chave, valor in dados["base_saida"].items():
-        saida[chave] = converter_decimal(numero_decimal, int(valor))
+        saida["#resultado-"+chave[11:]] = converter_decimal(numero_decimal, int(valor))
 
     return saida
