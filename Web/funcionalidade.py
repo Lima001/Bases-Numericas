@@ -54,11 +54,30 @@ def verificar_numero_valido(numero:int) -> bool:
 #Função utilizada para converter o numero de entrada para as diferentes bases informadas
 def executar_conversao(dados:dict) -> dict:
     saida = {}
-    numero_entrada = int(dados["numero"])
+    numero_entrada = dados["numero"]
     base_entrada =  int(dados["base_entrada"])
     numero_decimal = gerar_decimal(numero_entrada, base_entrada)
 
     for chave, valor in dados["base_saida"].items():
         saida["#resultado-"+chave[11:]] = converter_decimal(numero_decimal, int(valor))
 
+    return saida
+
+def executar_operacao(dados:dict) -> dict:
+    saida = {}
+    num1 = dados["num1"]
+    num2 = dados["num2"]
+    operacao = dados["operador"]
+    base = int(dados["base"])
+
+    num1_decimal = gerar_decimal(num1, base)
+    num2_decimal = gerar_decimal(num2, base)
+
+    expressao = f"{num1_decimal} {operacao} {num2_decimal}"
+
+    resultado_decimal = eval(expressao)
+    resultado = converter_decimal(resultado_decimal, base)
+    
+    saida["#resultado"] = resultado
+    
     return saida

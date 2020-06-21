@@ -8,9 +8,9 @@
 <body>
     <h1>Um Operador de Bases Númericas Básico</h1>
     <form>
-        Numero1: <input type="text" name="num1" placeholder="ex.256"><br>
+        Numero1: <input id="num1" type="text"><br>
         Operacao: 
-        <select name="operacao" required>
+        <select id="operador" required>
             <option value="+">+ Adição</option>
             <option value="-">- Subtração</option>
             <option value="*">* Multiplicação</option>
@@ -19,11 +19,14 @@
             <option value="//">// Divisão Inteira</option>
             <option value="%">% Resto da Divisão</option>
         </select><br>
-        Numero2: <input type="text" name="num2" placeholder="ex.256"><br>
-        Base Entrada: <input type="text" name="base" placeholder="ex.8"><br>
-        Resultado: <input type="text" readonly><br>
-        <button class="enviar" type="button">Calcular</button>
+        Numero2: <input id="num2" type="text"><br>
+        Base Entrada: <input id="base" type="text"><br>
+        Resultado: <input id="resultado" type="text" readonly><br>
+        <button id="enviar" type="button">Calcular</button>
+        <button type="reset">Resetar</button>
     </form>
     <a href="/">Inicio</a>
 </body>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="../static/js/operador.js"></script>
 </html>

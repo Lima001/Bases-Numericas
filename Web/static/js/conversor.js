@@ -3,14 +3,14 @@ function del_saida(elemento){
     $('.'+seletor).remove()
 };
 
-function preparar_dados_envio(cont){
+function preparar_dados_envio(){
     var dados = {};
     
     dados["numero"] = $("#numero").val();
     dados["base_entrada"] = $("#base_entrada").val();
     dados["base_saida"] = {};
 
-    for (i=1; i<=cont; i++){
+    for (i=1; i<=cont_id; i++){
         var nome = "base_saida-" + i;
         dados["base_saida"][nome] = $("#"+nome).val();
     };
@@ -47,6 +47,6 @@ $("#enviar").click(function(){
             console.log(err)
         }
     }).done(function(dados){
-        formatar_dados_resposta(dados);
+        formatar_dados_resposta(dados)
     })
 });

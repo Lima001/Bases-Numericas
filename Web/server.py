@@ -21,33 +21,15 @@ def converter_numero():
     dados = request.get_json()
     return jsonify(executar_conversao(dados))
 
+@app.route("/realizar_operacao", methods=["POST"])
+def realizar_operacao():
+    dados = request.get_json()
+    return jsonify(executar_operacao(dados))
+
 @app.after_request
 def add_headers(resposta):
     resposta.headers.add('Access-Control-Allow-Origin', '*')
     resposta.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
     return resposta
-
-@app.route("/realizar_operacao", methods=["post"])
-def realizar_operacao():
-    num1 = request.form["num1"]
-    num2 = request.form["num2"]
-    base = int(request.form["base"])
-    operacao = request.form["operacao"]
-
-    if not (verificar_base_valida(base)):
-        return "Erro -> Base informada não suportada"
-    
-    if not (verificar_numero_valido(float(num1)) and verificar_numero_valido(float(num2))):
-        return "Erro -> Numeros informados não suportados"
-
-    num1_decimal = gerar_decimal(num1,base)
-    num2_decimal = gerar_decimal(num2,base)
-
-    comando = f"{num1_decimal}{operacao}{num2_decimal}"
-
-    resultado_decimal = eval(comando)
-    resultado = converter_decimal(resultado_decimal,base)
-
-    return resultado
 
 app.run(debug=True)
