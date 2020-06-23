@@ -1,18 +1,21 @@
-function del_saida(elemento){
-    var seletor = $(elemento).attr("id")
-    $('.'+seletor).remove()
-};
-
-function preparar_dados_envio(){
+function preparar_dados_envio(classe){
     var dados = {};
     
-    dados["numero"] = $("#numero").val();
-    dados["base_entrada"] = $("#base_entrada").val();
-    dados["base_saida"] = {};
+    if (classe == "realizar_operacao"){
+        dados["num1"] = $("#num1").val();
+        dados["num2"] = $("#num2").val();
+        dados["base"] = $("#base").val();
+        dados["operador"] = $("#operador").val();
+    }
+    else if (classe == "converter_numero"){
+        dados["numero"] = $("#numero").val();
+        dados["base_entrada"] = $("#base_entrada").val();
+        dados["base_saida"] = {};
 
-    for (i=1; i<=cont_id; i++){
-        var nome = "base_saida-" + i;
-        dados["base_saida"][nome] = $("#"+nome).val();
+        for (i=1; i<=cont_id; i++){
+            var nome = "base_saida-" + i;
+            dados["base_saida"][nome] = $("#"+nome).val();
+        };
     };
 
     return(dados);
@@ -22,6 +25,11 @@ function formatar_dados_resposta(dados){
     $.each(dados, function(chave,valor){
         $(chave).val(valor)
     });
+};
+
+function del_saida(elemento){
+    var seletor = $(elemento).attr("id")
+    $('.'+seletor).remove()
 };
 
 var cont_id = 1;
@@ -37,12 +45,13 @@ $("#add_saida").click(function(){
 });
 
 $("#enviar").click(function(){
+    var classe = $(this).attr("class");
     $.ajax({
-        url: "http://localhost:5000/converter_numero",
+        url: "http://localhost:5000/" + classe,
         type: "POST",
         dataType: "json",
         contentType: "application/json",
-        data: JSON.stringify(preparar_dados_envio(cont_id)),
+        data: JSON.stringify(preparar_dados_envio(classe)),
         error: function(err){
             console.log(err)
         }
