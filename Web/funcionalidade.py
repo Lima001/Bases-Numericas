@@ -13,16 +13,25 @@ simbolos = {
 #Da inversão de chave:valor
 simbolos_invertidos = {chave:valor for valor,chave in simbolos.items()}
 
-def gerar_decimal(num:int, base:int) -> int:
-    decimal = 0
-    num = list(str(num))
-    for i in range(len(num)):
-        decimal += int(simbolos[num[-1-i].upper()])*(base**i)
+def gerar_decimal(entrada:str, base:int) -> str:
+    saida = 0
     
-    return decimal
+    sinal, num = retornar_numero_sinal(entrada)
+    num = list(num)
+    
+    for i in range(len(num)):
+        saida += int(simbolos[num[-1-i].upper()])*(base**i)
 
-def converter_decimal(num:int, base:int) -> str:
+    saida = sinal + str(saida)
+
+    return saida
+
+def converter_decimal(entrada:str, base:int) -> str:
     saida = ""
+    
+    sinal, num = retornar_numero_sinal(entrada)
+    num = int(num)
+    
     exe = True
     while exe:
         if num < base:
@@ -30,6 +39,8 @@ def converter_decimal(num:int, base:int) -> str:
         resto = num % base
         num = num // base
         saida += simbolos_invertidos[resto]
+
+    saida += sinal
     
     return saida[-1::-1]
 
@@ -40,16 +51,17 @@ def verificar_base_valida(base:int) -> bool:
         Função utilizada para verificar se uma base formada corresponde a uma base suportada pelo
         programa de conversão entre sistemas númericos desenvolvido.
     '''
-    if base > 0 and base <= 36:
-        return True
-    
-    return False
+    return base > 0 and base <= 36
 
-#Usar para verificar se as entradas estão de acordo com o suportado pelo programa
-def verificar_numero_valido(numero:int) -> bool:
-    if numero >= 0 and int(numero) == numero:
-        return True
-    return False
+def retornar_numero_sinal(entrada:str) -> tuple:
+    if entrada[0] == "-":
+        sinal = "-"
+        num = entrada[1:]
+    else:
+        sinal = ""
+        num = entrada
+
+    return (sinal,num)
 
 #Função utilizada para converter o numero de entrada para as diferentes bases informadas
 def executar_conversao(dados:dict) -> dict:
@@ -63,6 +75,7 @@ def executar_conversao(dados:dict) -> dict:
 
     return saida
 
+
 def executar_operacao(dados:dict) -> dict:
     saida = {}
     num1 = dados["num1"]
@@ -75,7 +88,7 @@ def executar_operacao(dados:dict) -> dict:
 
     expressao = f"{num1_decimal} {operacao} {num2_decimal}"
 
-    resultado_decimal = eval(expressao)
+    resultado_decimal = str(eval(expressao))
     resultado = converter_decimal(resultado_decimal, base)
     
     saida["#resultado"] = resultado
