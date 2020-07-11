@@ -1,10 +1,5 @@
 import decimal
 
-def verificar_base(base=0):
-    if base > 1 and base < 37:
-        return True
-    return False
-
 while True:
     print("\n"*100)
     print("-"*10)
@@ -15,11 +10,11 @@ while True:
         break
 
     base = 0
-    while not(verificar_base(base)):
+    while not(decimal.verificar_base_valida(base)):
         base = int(input("\nDigite a base em que deseja realizar as operações(2-36): ")) 
     
-    num1 = (input("Digite o primeiro numero: "))
-    num2 = (input("Digite o segundo numero: "))
+    num1 = input("Digite o primeiro numero: ")
+    num2 = input("Digite o segundo numero: ")
     
     print("\n-- Operações suportadas--")
     print("'+' Soma | '-' Subtração | '*' multiplicação | '/' divisão")
@@ -30,5 +25,5 @@ while True:
     num2_decimal = decimal.gerar_decimal(num2,base)
     comando = "resultado_decimal = " + str(num1_decimal) + operacao + str(num2_decimal)
     exec(comando)
-    print(decimal.converter_decimal(resultado_decimal,base))
+    print(decimal.converter_decimal(str(resultado_decimal),base))
     trava = input("Pressione enter para continuar")

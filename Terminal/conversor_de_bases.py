@@ -4,11 +4,6 @@
 #E disponibilizado no mesmo local deste arquivo
 import decimal
 
-def verificar_base(base=0):
-    if base > 1 and base < 37:
-        return True
-    return False
-
 while True:
     print("\n"*100)
     print("-"*10)
@@ -20,12 +15,12 @@ while True:
     
     base_entrada = 0
     base_saida = 0
-    while not(verificar_base(base_entrada)):
+    while not(decimal.verificar_base_valida(base_entrada)):
         base_entrada = int(input("Digite a base de entrada(2-36): ")) 
     
     numero_entrada = (input("Digite o numero a ser convertido: "))
     
-    while not(verificar_base(base_saida)):
+    while not(decimal.verificar_base_valida(base_saida)):
         base_saida = int(input("Digite a base de saída(2-36): "))
 
     saida_decimal = decimal.gerar_decimal(numero_entrada,base_entrada)

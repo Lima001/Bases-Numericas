@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session, json, jsonify
+from flask import Flask, render_template, request, json, jsonify
 
 from funcionalidade import *
 
